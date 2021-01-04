@@ -1,12 +1,11 @@
 name: Cloud189Checkin
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  watch:
-    types: started
   schedule:
     - cron: 0 2,14 * * *
 
@@ -30,8 +29,8 @@ jobs:
       run: |
         sed -i 's|SCKEY = ""|SCKEY = "${{ secrets.SCKEY }}"|' C189Checkin.py
 
-        user=${{ secrets.USER }}
-        pwd=${{ secrets.PWD }}
+        user="${{ secrets.USER }}"
+        pwd="${{ secrets.PWD }}"
         user_list=()
         pwd_list=()
 
